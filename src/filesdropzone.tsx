@@ -17,8 +17,8 @@ export interface selectFileButtonLabel {
 const useStyles = makeStyles({
   box: {
     display: 'flex',
-    maxWidth: "20%",
-    minHeight: "15vh",
+    maxWidth: '20%',
+    minHeight: '15vh',
     justifyContent: 'center',
     alignItems: 'center',
     border: 'solid 3px',
@@ -29,14 +29,16 @@ const useStyles = makeStyles({
     margin: '0 auto',
   },
   text: {
-    display: 'inline'
-  }
+    display: 'inline',
+  },
 });
 
-const FilesDropZone: React.FC<dragDropText & orText & selectFileButtonLabel> = ({
+const FilesDropZone: React.FC<
+  dragDropText & orText & selectFileButtonLabel
+> = ({
   text: dragDropText = 'DRAG-DROP HERE',
   text: orText = 'OR',
-  text: selectFileText = 'SELECT FILE'
+  text: selectFileText = 'SELECT FILE',
 }) => {
   const classes = useStyles();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -52,18 +54,25 @@ const FilesDropZone: React.FC<dragDropText & orText & selectFileButtonLabel> = (
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDragIsOver(true);
-  }
+  };
   const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDragIsOver(false);
-  }
+  };
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDragIsOver(false);
-  }
+  };
 
   return (
-    <Box className={classes.box} id="dropzone" onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop} style={{backgroundColor: dragIsOver ? 'lightgray' : 'white'}}>
+    <Box
+      className={classes.box}
+      id="dropzone"
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      style={{ backgroundColor: dragIsOver ? 'lightgray' : 'white' }}
+    >
       <Typography className={classes.text}>{dragDropText}</Typography>
       <Typography className={classes.text}>{orText}</Typography>
       <form>
@@ -76,7 +85,6 @@ const FilesDropZone: React.FC<dragDropText & orText & selectFileButtonLabel> = (
           <input hidden type="file" ref={fileInputRef} />
         </Button>
       </form>
-      <Typography style={{display: dragIsOver ? 'inline' : 'none'}}>drag-drop here toimii</Typography>
     </Box>
   );
 };
