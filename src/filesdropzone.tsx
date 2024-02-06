@@ -3,15 +3,15 @@ import { Typography, Box, Button } from '@material-ui/core/';
 import { makeStyles, styled } from '@mui/styles';
 
 export interface dragDropText {
-  text?: 'DRAG-DROP HERE'
+  text?: string;
 }
 
 export interface orText {
-  text?: 'OR'
+  text?: string;
 }
 
 export interface selectFileButtonLabel {
-  text?: 'SELECT FILE'
+  text?: string;
 }
 
 const useStyles = makeStyles({
@@ -33,7 +33,11 @@ const useStyles = makeStyles({
   }
 });
 
-const FilesDropZone = () => {
+const FilesDropZone: React.FC<dragDropText & orText & selectFileButtonLabel> = ({
+  text: dragDropText = 'DRAG-DROP HERE',
+  text: orText = 'OR',
+  text: selectFileText = 'SELECT FILE'
+}) => {
   const classes = useStyles();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,15 +49,15 @@ const FilesDropZone = () => {
 
   return (
     <Box className={classes.box}>
-      <Typography className={classes.text}>DRAG-DROP HERE</Typography>
-      <Typography className={classes.text}>OR</Typography>
+      <Typography className={classes.text}>{dragDropText}</Typography>
+      <Typography className={classes.text}>{orText}</Typography>
       <form>
         <Button
           variant="contained"
           className={classes.text}
           onClick={handleButtonClick}
         >
-          SELECT FILE
+          {selectFileText}
           <input hidden type="file" ref={fileInputRef} />
         </Button>
       </form>
