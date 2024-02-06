@@ -1,24 +1,23 @@
-/* eslint-disable */
-import React from 'react';
-import { Typography, Box, Button } from '@material-ui/core/'
-import { makeStyles } from '@mui/styles'
+import React, { useRef } from 'react';
+import { Typography, Box, Button } from '@material-ui/core/';
+import { makeStyles, styled } from '@mui/styles';
 
 export interface dragDropText {
-  text?: string;
+  text?: 'DRAG-DROP HERE'
 }
 
 export interface orText {
- text?: string;
+  text?: 'OR'
 }
 
 export interface selectFileButtonLabel {
-  text?: string;
+  text?: 'SELECT FILE'
 }
 
 const useStyles = makeStyles({
   box: {
     display: 'flex',
-    maxWidth: "25%",
+    maxWidth: "20%",
     minHeight: "15vh",
     justifyContent: 'center',
     alignItems: 'center',
@@ -32,17 +31,32 @@ const useStyles = makeStyles({
   text: {
     display: 'inline'
   }
-})
+});
 
 const FilesDropZone = () => {
   const classes = useStyles();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
     <Box className={classes.box}>
       <Typography className={classes.text}>DRAG-DROP HERE</Typography>
-      <br />
       <Typography className={classes.text}>OR</Typography>
-      <br />
-      <Button variant="contained" className={classes.text}>SELECT FILE</Button>
+      <form>
+        <Button
+          variant="contained"
+          className={classes.text}
+          onClick={handleButtonClick}
+        >
+          SELECT FILE
+          <input hidden type="file" ref={fileInputRef} />
+        </Button>
+      </form>
     </Box>
   );
 };
